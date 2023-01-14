@@ -1,0 +1,35 @@
+{
+  "employees": [
+    {
+      "id": 1,
+      "name": "pattrick",
+      "salary": "60,000",
+      "age": "35"
+    },
+    {
+      "id": 2,
+      "name": "james",
+      "salary": "70,000",
+      "age": "40"
+    },
+    {
+      "id": 3,
+      "name": "daniel",
+      "salary": "50,000",
+      "age": "30"
+    },
+    {
+      "name": "leon",
+      "salary": "90,000",
+      "age": "26",
+      "id": 4,
+      "gender": "male"
+    },
+    {
+      "name": "xys",
+      "salary": "56,000",
+      "age": "56",
+      "id": 5
+    }
+  ]
+}
