@@ -3,7 +3,7 @@
     <h3 style="color: black">Sign-Up Form</h3>
     <h3 v-if="sure" style="color: Green">Form Submitted Successfully!!!</h3>
     <div v-if="!sure">
-      <form @submit="signUp">
+      <form @submit="signUp" method="post">
         <div>
           <input
             type="text"
@@ -75,6 +75,31 @@
           v-model="signup.gender"
         />
         <label for="Female"> Female </label>
+
+        <h5 style="color: black">Personal Information</h5>
+        <input
+          type="number"
+          placeholder="enter Your Salary"
+          value="salary"
+          v-model="signup.salary"
+        />
+        <p style="color: red" v-if="erray.includes('salary')">
+          Salary (in Rs) is Required*
+        </p>
+        <input
+          type="number"
+          placeholder="enter Age"
+          value="age"
+          v-model="signup.age"
+        />
+        <p style="color: red" v-if="erray.includes('age')">Age is Required*</p>
+        <p style="color: red" v-if="erray.includes('maxAge')">
+          Age can't Exceed 60 Years*
+        </p>
+        <p style="color: red" v-if="erray.includes('minage')">
+          You must be above 25 years for Applying*
+        </p>
+
         <div>
           <button v-on:click="clearForm">Clear</button>
           <button v-bind:disabled="err" type="submit">Submit</button>
@@ -84,6 +109,11 @@
   </div>
 </template>
 <script>
+import Vue from "vue";
+import VueAxios from "vue-axios";
+import axios from "axios";
+import { URLS } from "../utils/constants/urls";
+Vue.use(VueAxios, axios);
 export default {
   name: "FormComponent",
   data() {
@@ -93,6 +123,8 @@ export default {
         password: null,
         privleges: [],
         gender: null,
+        salary: null,
+        age: null,
       },
       erray: [],
       err: false,
@@ -100,17 +132,37 @@ export default {
     };
   },
   methods: {
+    addUser() {
+      const body = {
+        name: this.signup.username,
+        salary: this.signup.salary,
+        age: this.signup.age,
+      };
+      this.axios.post(URLS.addUser, body).then((response) => {
+        console.warn("response", response);
+      });
+    },
+    clearForm() {
+      this.signup.username = "";
+      this.signup.password = "";
+      this.signup.privleges = "";
+      this.gender.privleges = "";
+      this.erray.length = 0;
+    },
     signUp(e) {
       if (
         this.signup.username &&
         this.signup.password &&
         this.signup.privleges &&
-        this.signup.gender
+        this.signup.gender &&
+        this.signup.salary &&
+        this.signup.age
       ) {
         this.err == false;
         alert("Are you Sure Want to Create?");
-        this.sure === true;
+        this.addUser();
         console.log(this.signup);
+        this.sure == true;
       }
       if (!this.signup.username) {
         this.err == true;
@@ -136,13 +188,23 @@ export default {
         this.err == true;
         this.erray.push("gender");
       }
+      if (!this.signup.salary) {
+        this.err == true;
+        this.erray.push("salary");
+      }
+      if (!this.signup.age) {
+        this.err == true;
+        this.erray.push("age");
+      }
+      if (this.signup.age > 60) {
+        this.err == true;
+        this.erray.push("maxAge");
+      }
+      if (this.signup.age < 25) {
+        this.err == true;
+        this.erray.push("minAge");
+      }
       e.preventDefault();
-    },
-    clearForm() {
-      this.signup.username = "";
-      this.signup.password = "";
-      this.signup.privleges = "";
-      this.gender.privleges = "";
     },
   },
 };

@@ -8,11 +8,27 @@
           <th>Name</th>
           <th>Salary</th>
           <th>Age</th>
+          <th>Actions</th>
         </tr>
         <tr v-for="item in list" v-bind:key="item.id">
-          <td>{{item.name}}</td>
-          <td>{{item.salary}}</td>
-          <td>{{item.age}}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.salary }}</td>
+          <td>{{ item.age }}</td>
+          <td>
+            <button type="button" class="btn btn-primary m-2 btn-sm">
+              <i class="fa fa-eye"></i>
+            </button>
+            <button type="button" class="btn btn-warning m-2 btn-sm">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger m-2 btn-sm"
+              v-on:click="deleteUser(item.id)"
+            >
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
         </tr>
       </table>
     </div>
@@ -22,24 +38,34 @@
 import Vue from "vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
-import {URLS} from '../utils/constants/urls'
-Vue.use(VueAxios, axios)
+import { URLS } from "../utils/constants/urls";
+Vue.use(VueAxios, axios);
 export default {
   name: "UserList",
   props: {
     msg: String,
   },
-  data(){
+  data() {
     return {
-        list:undefined
-    }
+      list: undefined,
+    };
+  },
+  methods: {
+    getUsers() {
+      this.axios.get(URLS.userList).then((response) => {
+        console.warn(response);
+        this.list = response.data;
+      });
+    },
+    deleteUser(id) {
+      this.axios.delete(URLS.deleteUserById + id).then((response) => {
+        console.warn(response);
+        this.getUsers();
+      });
+    },
   },
   mounted() {
-    Vue.axios
-      .get(URLS.userList)
-      .then((response) => {
-        this.list=response.data
-      });
+    this.getUsers();
   },
 };
 </script>
