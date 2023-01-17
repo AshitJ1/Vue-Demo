@@ -16,6 +16,7 @@
     <ParentComponent />
     <FormComponent />
     <UserList msg="(Get Data with API)" />
+    <CalculatorPage/>
   </div>
 </template>
 <script>
@@ -26,6 +27,7 @@ import DataBind from "./DataBind.vue";
 import ParentComponent from "./ParentComponent.vue";
 import FormComponent from "./FormComponent.vue";
 import UserList from "./UserList.vue";
+import CalculatorPage from './CalculatorPage.vue';
 
 export default {
   name: "HomePage",
@@ -37,6 +39,7 @@ export default {
     ParentComponent,
     FormComponent,
     UserList,
+    CalculatorPage,
   },
   data() {
     return {
