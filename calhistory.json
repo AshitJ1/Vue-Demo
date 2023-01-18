@@ -15,18 +15,32 @@
       "result": 5
     },
     {
-      "Anum": 2,
-      "Bnum": 1,
-      "operation": "-",
-      "result": 1,
-      "id": 3
-    },
-    {
       "Anum": 6676,
       "Bnum": 898,
       "operation": "*",
       "result": 5995048,
+      "id": 3
+    },
+    {
+      "Anum": 898.8787,
+      "Bnum": 76767,
+      "operation": "-",
+      "result": -75868.1213,
       "id": 4
+    },
+    {
+      "Anum": 78878,
+      "Bnum": 8787,
+      "operation": "+",
+      "result": 87665,
+      "id": 5
+    },
+    {
+      "Anum": 10,
+      "Bnum": 6,
+      "operation": "%",
+      "result": 0.6000000000000001,
+      "id": 6
     }
   ]
 }

@@ -1,23 +1,107 @@
 <template>
   <div>
-    <h1>calculator</h1>
-    <input placeholder="Enter Number" type="number" v-model.number="Anum" />
-    <select
-      class="form-select"
-      aria-label="Default select example"
-      v-model="operator"
-    >
-      <option selected>Select Operation</option>
-      <option value="+">+</option>
-      <option value="-">-</option>
-      <option value="*">X</option>
-      <option value="/">/</option>
-    </select>
+    <div class="container cal">
+      <div class="row">
+        <div class="col-sm">
+          <div class="card" style="width: 18rem">
+            <div class="card-header featured">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm">
+                    <h4>
+                      {{ Anum }}
+                      {{ operator }}
+                      {{ Bnum }}
+                      =
+                      {{ result }}
+                    </h4>
+                    <button
+                      type="button"
+                      class="btn btn-link his"
+                      v-on:click="his"
+                    >
+                      <i class="fa fa-history"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-    <input placeholder="Enter Number" type="number" v-model.number="Bnum" />
-    <button v-on:click="calc">show</button>
-    <h5>={{ result }}</h5>
-    <h5>history</h5>
+            <div class="card-body">
+              <h5 class="card-title">Calculator</h5>
+              <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-sm">
+                    {{ of ? "Percent" : "1st Input" }}
+                  </span>
+                </div>
+                <input
+                  class="form-control"
+                  aria-label="Small"
+                  aria-describedby="inputGroup-sizing-sm"
+                  placeholder="Enter Number"
+                  type="number"
+                  v-model.number="Anum"
+                />
+              </div>
+
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="inputGroupSelect01"
+                    >Operation</label
+                  >
+                </div>
+                <select
+                  class="custom-select"
+                  id="inputGroupSelect01"
+                  v-model="operator"
+                >
+                  <option value="." selected>Choose...</option>
+                  <option value="+">Addition (+)</option>
+                  <option value="-">Substraction (-)</option>
+                  <option value="*">Multiplication (*)</option>
+                  <option value="/">Division (/)</option>
+                  <option value="%">Percentage (%)</option>
+                </select>
+              </div>
+
+              <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-sm">{{
+                    of ? "Total" : "2nd Input"
+                  }}</span>
+                </div>
+                <input
+                  class="form-control"
+                  aria-label="Small"
+                  aria-describedby="inputGroup-sizing-sm"
+                  placeholder="Enter Number"
+                  type="number"
+                  v-model.number="Bnum"
+                />
+              </div>
+
+              <div class="container mb-2">
+                <div class="row">
+                  <div class="col-sm">
+                    <button class="btn btn-danger" v-on:click="clear">
+                      AC
+                    </button>
+                  </div>
+                  <div class="col-sm">
+                    <button class="btn btn-primary" v-on:click="calc">
+                      Result
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- in progress -->
     <div v-for="item in history" v-bind:key="item.id">
       <p>{{ item.Anum }}{{ item.operator }}{{ item.Bnum }}={{ item.result }}</p>
       <button
@@ -28,6 +112,7 @@
         <i class="fa fa-trash"></i>
       </button>
     </div>
+    <!-- in progress -->
   </div>
 </template>
 
@@ -43,9 +128,11 @@ export default {
     return {
       Anum: 0,
       Bnum: 0,
-      operator: "",
-      result: "",
+      operator: ".",
+      result: "0",
       history: undefined,
+      of: false,
+      showHistory: false,
     };
   },
 
@@ -68,7 +155,20 @@ export default {
           this.result = this.Anum / this.Bnum;
           this.postHistory();
           return this.Anum / this.Bnum;
+        case "%":
+          this.of = true;
+          this.result = (this.Anum / 100) * this.Bnum;
+          this.postHistory();
+          return (this.Anum / 100) * this.Bnum;
       }
+    },
+    clear() {
+      (this.Anum = 0), (this.Bnum = 0), (this.operator = ".");
+      this.result = 0;
+    },
+    his() {
+      this.showHistory = !this.showHistory;
+      console.log(this.showHistory);
     },
     getHistory() {
       this.axios.get(URLS.history).then((response) => {
@@ -101,4 +201,18 @@ export default {
 </script>
 
 <style scoped>
+.cal {
+  display: flex;
+  justify-content: center;
+}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.featured {
+  background-color: rgb(214, 214, 214);
+  border: 1px solid black;
+}
+.his {
+  float: right;
+}
 </style>
