@@ -16,7 +16,15 @@
     <ParentComponent />
     <FormComponent />
     <UserList msg="(Get Data with API)" />
-    <CalculatorPage/>
+
+    <div class="container">
+      <div class="row">
+        <div class="col featured">
+          <CalculatorPage />
+          <ToDo />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -27,7 +35,8 @@ import DataBind from "./DataBind.vue";
 import ParentComponent from "./ParentComponent.vue";
 import FormComponent from "./FormComponent.vue";
 import UserList from "./UserList.vue";
-import CalculatorPage from './CalculatorPage.vue';
+import CalculatorPage from "./CalculatorPage.vue";
+import ToDo from "./ToDo.vue";
 
 export default {
   name: "HomePage",
@@ -40,6 +49,7 @@ export default {
     FormComponent,
     UserList,
     CalculatorPage,
+    ToDo,
   },
   data() {
     return {
@@ -61,5 +71,9 @@ export default {
 <style scoped>
 .home {
   background-color: rgb(147, 255, 147);
+}
+.featured {
+  display: flex;
+  justify-content: center;
 }
 </style>

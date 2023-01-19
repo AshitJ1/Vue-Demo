@@ -5,8 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "json-server": "json-server --watch db.json --port 3004",
-    "json-server-2": "json-server --watch calhistory.json --port 3005",
-    "con": "concurrently \"npm run serve\" \"npm run json-server\" \"npm run json-server-2\"",
+    "con": "concurrently \"npm run serve\" \"npm run json-server\"",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },

@@ -31,9 +31,18 @@
               <h5 class="card-title"><b>Calculator</b></h5>
               <div class="input-group input-group-sm mb-3">
                 <div class="input-group-prepend">
-                  <span class="input-group-text" id="inputGroup-sizing-sm">
-                    {{ of ? "Percent" : "1st Input" }}
-                  </span>
+                  <span
+                    class="input-group-text"
+                    id="inputGroup-sizing-sm"
+                    v-if="operator === '%'"
+                    >Percent</span
+                  >
+                  <span
+                    class="input-group-text"
+                    id="inputGroup-sizing-sm"
+                    v-else
+                    >1st Input</span
+                  >
                 </div>
                 <input
                   class="form-control"
@@ -67,9 +76,18 @@
 
               <div class="input-group input-group-sm mb-3">
                 <div class="input-group-prepend">
-                  <span class="input-group-text" id="inputGroup-sizing-sm">{{
-                    of ? "Total" : "2nd Input"
-                  }}</span>
+                  <span
+                    class="input-group-text"
+                    id="inputGroup-sizing-sm"
+                    v-if="operator === '%'"
+                    >Total</span
+                  >
+                  <span
+                    class="input-group-text"
+                    id="inputGroup-sizing-sm"
+                    v-else
+                    >2nd Input</span
+                  >
                 </div>
                 <input
                   class="form-control"
@@ -85,7 +103,7 @@
                 <div class="row">
                   <div class="col-sm">
                     <button class="btn btn-danger" v-on:click="clear">
-                      AC
+                      AC <i class="fa fa-remove"></i>
                     </button>
                   </div>
                   <div class="col-sm">
@@ -124,6 +142,7 @@ import { URLS } from "../utils/constants/urls";
 Vue.use(VueAxios, axios);
 export default {
   name: "CalculatorPage",
+
   data() {
     return {
       Anum: 0,
@@ -131,7 +150,6 @@ export default {
       operator: ".",
       result: "0",
       history: undefined,
-      of: false,
       showHistory: false,
     };
   },
@@ -156,7 +174,6 @@ export default {
           this.postHistory();
           return this.Anum / this.Bnum;
         case "%":
-          this.of = true;
           this.result = (this.Anum / 100) * this.Bnum;
           this.postHistory();
           return (this.Anum / 100) * this.Bnum;

@@ -2,7 +2,7 @@
   <div class="register">
     <h3 style="color: black">Sign-Up Form</h3>
     <h3 v-if="sure" style="color: Green">Form Submitted Successfully!!!</h3>
-    <div v-if="!sure">
+    <div v-else>
       <form @submit="signUp" method="post">
         <div>
           <input
