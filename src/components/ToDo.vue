@@ -27,7 +27,7 @@
             </div>
             <div class="card-body">
               <h5 class="card-title"><b>To-Dos:</b></h5>
-              <div class="card-text">
+              <div class="card-text" v-if="list.length > 0">
                 <ul class="list-group">
                   <li
                     class="list-group-item"
@@ -36,7 +36,7 @@
                   >
                     {{ item.bit }}
                     <!-- in progress -->
-                    <!-- <del>{{ item.bit }}</del> -->
+                    <!-- <p class="text-decoration-line-through">{{ item.bit }}</p> -->
                     <!-- <button
                       type="button"
                       class="btn text-success"
@@ -53,6 +53,9 @@
                     </button>
                   </li>
                 </ul>
+              </div>
+              <div class="badge bg-primary text-wrap" v-else>
+                Add items to View...
               </div>
             </div>
           </div>
@@ -74,6 +77,7 @@ export default {
       order: "",
       list: undefined,
       line: false,
+      empty: false,
     };
   },
   methods: {
@@ -106,6 +110,9 @@ export default {
   },
   mounted() {
     this.getToDo();
+    if (this.list.length > 0) {
+      this.empty = true;
+    }
   },
 };
 </script>

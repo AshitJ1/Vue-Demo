@@ -35,16 +35,8 @@
   "history": [],
   "todo": [
     {
-      "bit": "typicode",
-      "id": 1
-    },
-    {
-      "bit": "sleep",
-      "id": 2
-    },
-    {
       "bit": "hi",
-      "id": 3
+      "id": 1
     }
   ]
 }

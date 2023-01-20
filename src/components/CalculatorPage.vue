@@ -120,8 +120,8 @@
     </div>
 
     <!-- in progress -->
-    <h4>history</h4>
     <div v-for="item in history" v-bind:key="item.id">
+      <h4>history</h4>
       <p>
         {{ item.Anum }}{{ item.operation }}{{ item.Bnum }}={{ item.result }}
       </p>
