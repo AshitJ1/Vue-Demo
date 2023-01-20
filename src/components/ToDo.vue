@@ -15,44 +15,41 @@
                   v-model="order"
                 />
                 <div class="input-group-prepend">
-                  <button type="button" class="btn btn-primary btn-sm">
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-sm"
+                    v-on:click="postToDo"
+                  >
                     Add <i class="fa fa-plus"></i>
                   </button>
                 </div>
               </div>
             </div>
             <div class="card-body">
-              <h5 class="card-title">To-Dos:</h5>
+              <h5 class="card-title"><b>To-Dos:</b></h5>
               <div class="card-text">
                 <ul class="list-group">
-                  <li class="list-group-item">
-                    Cras justo odio
-                    <button type="button" class="btn btn-link">
+                  <li
+                    class="list-group-item"
+                    v-for="item in list"
+                    v-bind:key="item.id"
+                  >
+                    {{ item.bit }}
+                    <!-- in progress -->
+                    <!-- <del>{{ item.bit }}</del> -->
+                    <!-- <button
+                      type="button"
+                      class="btn text-success"
+                      v-on:click="strike"
+                    >
                       <i class="fa fa-check" style="font-size: 20px"></i>
-                    </button>
-                  </li>
-                  <li class="list-group-item">
-                    Dapibus ac facilisis in
-                    <button type="button" class="btn btn-link">
-                      <i class="fa fa-check" style="font-size: 20px"></i>
-                    </button>
-                  </li>
-                  <li class="list-group-item">
-                    Morbi leo risus
-                    <button type="button" class="btn btn-link">
-                      <i class="fa fa-check" style="font-size: 20px"></i>
-                    </button>
-                  </li>
-                  <li class="list-group-item">
-                    Porta ac consectetur ac
-                    <button type="button" class="btn btn-link">
-                      <i class="fa fa-check" style="font-size: 20px"></i>
-                    </button>
-                  </li>
-                  <li class="list-group-item">
-                    Vestibulum at eros
-                    <button type="button" class="btn btn-link">
-                      <i class="fa fa-check" style="font-size: 20px"></i>
+                    </button> -->
+                    <button
+                      type="button"
+                      class="btn text-danger"
+                      v-on:click="deleteToDo(item.id)"
+                    >
+                      <i class="fa fa-remove" style="font-size: 20px"></i>
                     </button>
                   </li>
                 </ul>
@@ -68,21 +65,47 @@
 import Vue from "vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
+import { URLS } from "../utils/constants/urls";
 Vue.use(VueAxios, axios);
 export default {
   name: "ToDo",
   data() {
     return {
       order: "",
+      list: undefined,
+      line: false,
     };
   },
   methods: {
-    mounted() {
-      Vue.axios.get('http://localhost:3004/todo')
-      .then(resp=>{
-        console.warn(resp.data.data);
-      })
+    getToDo() {
+      this.axios.get(URLS.toDo).then((response) => {
+        console.warn(response);
+        this.list = response.data;
+      });
     },
+    deleteToDo(id) {
+      this.axios.delete(URLS.deleteToDoById + id).then((response) => {
+        console.warn(response);
+        this.getToDo();
+      });
+    },
+    postToDo() {
+      const body = {
+        bit: this.order,
+      };
+      this.axios.post(URLS.toDo, body).then((response) => {
+        console.warn("response", response);
+        this.getToDo();
+        this.order = "";
+      });
+    },
+    strike() {
+      this.line = !this.line;
+      console.log(this.line);
+    },
+  },
+  mounted() {
+    this.getToDo();
   },
 };
 </script>

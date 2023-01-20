@@ -6,5 +6,6 @@ export const URLS = {
     history: "http://localhost:3004/history",
     deleteHistoryById: `http://localhost:3004/history/`,
 
-    todo: "http://localhost:3004/todo"
+    toDo: "http://localhost:3004/todo",
+    deleteToDoById: `http://localhost:3004/todo/`,
 };

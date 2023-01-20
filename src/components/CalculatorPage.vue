@@ -120,8 +120,11 @@
     </div>
 
     <!-- in progress -->
+    <h4>history</h4>
     <div v-for="item in history" v-bind:key="item.id">
-      <p>{{ item.Anum }}{{ item.operator }}{{ item.Bnum }}={{ item.result }}</p>
+      <p>
+        {{ item.Anum }}{{ item.operation }}{{ item.Bnum }}={{ item.result }}
+      </p>
       <button
         type="button"
         class="btn btn-danger m-2 btn-sm"
@@ -154,28 +157,37 @@ export default {
     };
   },
 
+  mounted() {
+    this.getHistory();
+  },
+
   methods: {
     calc() {
       switch (this.operator) {
         case "+":
           this.result = this.Anum + this.Bnum;
           this.postHistory();
+          this.getHistory();
           return this.Anum + this.Bnum;
         case "-":
           this.result = this.Anum - this.Bnum;
           this.postHistory();
+          this.getHistory();
           return this.Anum - this.Bnum;
         case "*":
           this.result = this.Anum * this.Bnum;
           this.postHistory();
+          this.getHistory();
           return this.Anum * this.Bnum;
         case "/":
           this.result = this.Anum / this.Bnum;
           this.postHistory();
+          this.getHistory();
           return this.Anum / this.Bnum;
         case "%":
           this.result = (this.Anum / 100) * this.Bnum;
           this.postHistory();
+          this.getHistory();
           return (this.Anum / 100) * this.Bnum;
       }
     },
@@ -209,9 +221,6 @@ export default {
         console.warn(response);
         this.getHistory();
       });
-    },
-    mounted() {
-      this.getHistory();
     },
   },
 };

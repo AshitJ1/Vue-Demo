@@ -32,45 +32,19 @@
       "id": 6
     }
   ],
-  "history": [
+  "history": [],
+  "todo": [
     {
-      "id": 1,
-      "Anum": 1,
-      "Bnum": 2,
-      "operation": "+",
-      "result": 3
+      "bit": "typicode",
+      "id": 1
     },
     {
-      "Anum": 6676,
-      "Bnum": 898,
-      "operation": "*",
-      "result": 5995048,
+      "bit": "sleep",
       "id": 2
     },
     {
-      "Anum": 898.8787,
-      "Bnum": 76767,
-      "operation": "-",
-      "result": -75868.1213,
+      "bit": "hi",
       "id": 3
-    },
-    {
-      "Anum": 10,
-      "Bnum": 6,
-      "operation": "%",
-      "result": 0.6000000000000001,
-      "id": 4
-    },
-    {
-      "Anum": 51000,
-      "Bnum": 12000,
-      "operation": "-",
-      "result": 39000,
-      "id": 5
     }
-  ],
-  "todo": {
-    "bit": "typicode",
-    "id": "1"
-  }
+  ]
 }
