@@ -119,7 +119,7 @@
       </div>
     </div>
 
-    <!-- in progress -->
+    <!--History UI block in progress -->
     <div v-for="item in history" v-bind:key="item.id">
       <h4>history</h4>
       <p>
@@ -133,7 +133,7 @@
         <i class="fa fa-trash"></i>
       </button>
     </div>
-    <!-- in progress -->
+    <!-- History UI -->
   </div>
 </template>
 

@@ -18,12 +18,19 @@
                   <button
                     type="button"
                     class="btn btn-primary btn-sm"
-                    v-on:click="postToDo"
+                    v-on:click="addItems"
                   >
                     Add <i class="fa fa-plus"></i>
                   </button>
                 </div>
               </div>
+              <p
+                class="fs-6 fw-semibold"
+                style="color: red"
+                v-if="order.length == 0"
+              >
+                Required*
+              </p>
             </div>
             <div class="card-body">
               <h5 class="card-title"><b>To-Dos:</b></h5>
@@ -35,7 +42,7 @@
                     v-bind:key="item.id"
                   >
                     {{ item.bit }}
-                    <!-- in progress -->
+                    <!--extra feature in progress -->
                     <!-- <p class="text-decoration-line-through">{{ item.bit }}</p> -->
                     <!-- <button
                       type="button"
@@ -44,6 +51,7 @@
                     >
                       <i class="fa fa-check" style="font-size: 20px"></i>
                     </button> -->
+
                     <button
                       type="button"
                       class="btn text-danger"
@@ -76,11 +84,20 @@ export default {
     return {
       order: "",
       list: undefined,
-      line: false,
-      empty: false,
+      // line: false,
     };
   },
+  computed: {
+  isDisable() {
+    return this.email.length > 0;
+  }
+},
   methods: {
+    addItems() {
+      if (this.order.length > 0) {
+        this.postToDo();
+      }
+    },
     getToDo() {
       this.axios.get(URLS.toDo).then((response) => {
         console.warn(response);
@@ -103,16 +120,13 @@ export default {
         this.order = "";
       });
     },
-    strike() {
-      this.line = !this.line;
-      console.log(this.line);
-    },
+    // strike() {
+    //   this.line = !this.line;
+    //   console.log(this.line);
+    // },
   },
   mounted() {
     this.getToDo();
-    if (this.list.length > 0) {
-      this.empty = true;
-    }
   },
 };
 </script>

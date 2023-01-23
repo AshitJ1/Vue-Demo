@@ -1,8 +1,8 @@
 <template>
   <div class="register">
     <h3 style="color: black">Sign-Up Form</h3>
-    <h3 v-if="sure" style="color: Green">Form Submitted Successfully!!!</h3>
-    <div v-else>
+    <!-- <h3 v-if="erray.length==0" style="color: Green">Form Submitted Successfully!!!</h3> -->
+    <div>
       <form @submit="signUp" method="post">
         <div>
           <input
