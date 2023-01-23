@@ -87,11 +87,6 @@ export default {
       // line: false,
     };
   },
-  computed: {
-  isDisable() {
-    return this.email.length > 0;
-  }
-},
   methods: {
     addItems() {
       if (this.order.length > 0) {
