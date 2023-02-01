@@ -93,27 +93,39 @@ export default {
         this.postToDo();
       }
     },
-    getToDo() {
-      this.axios.get(URLS.toDo).then((response) => {
-        console.warn(response);
-        this.list = response.data;
-      });
+    async getToDo() {
+      try {
+        await this.axios.get(URLS.toDo).then((response) => {
+          console.warn(response);
+          this.list = response.data;
+        });
+      } catch (err) {
+        console.log(err);
+      }
     },
-    deleteToDo(id) {
-      this.axios.delete(URLS.deleteToDoById + id).then((response) => {
-        console.warn(response);
-        this.getToDo();
-      });
+    async deleteToDo(id) {
+      try {
+        await this.axios.delete(URLS.deleteToDoById + id).then((response) => {
+          console.warn(response);
+          this.getToDo();
+        });
+      } catch (err) {
+        console.log(err);
+      }
     },
-    postToDo() {
-      const body = {
-        bit: this.order,
-      };
-      this.axios.post(URLS.toDo, body).then((response) => {
-        console.warn("response", response);
-        this.getToDo();
-        this.order = "";
-      });
+    async postToDo() {
+      try {
+        const body = {
+          bit: this.order,
+        };
+        await this.axios.post(URLS.toDo, body).then((response) => {
+          console.warn("response", response);
+          this.getToDo();
+          this.order = "";
+        });
+      } catch (err) {
+        console.log(err);
+      }
     },
     // strike() {
     //   this.line = !this.line;

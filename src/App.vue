@@ -1,19 +1,19 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HomePage msg="with practice"/>
+    <img alt="Vue logo" src="./assets/logo.png" />
+    <HomePage msg="with practice" />
   </div>
 </template>
 
 <script>
-import HomePage from './components/HomePage.vue'
+import HomePage from "./components/HomePage.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HomePage
-  }
-}
+    HomePage,
+  },
+};
 </script>
 
 <style>

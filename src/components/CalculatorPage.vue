@@ -162,33 +162,37 @@ export default {
   },
 
   methods: {
-    calc() {
-      switch (this.operator) {
-        case "+":
-          this.result = this.Anum + this.Bnum;
-          this.postHistory();
-          this.getHistory();
-          return this.Anum + this.Bnum;
-        case "-":
-          this.result = this.Anum - this.Bnum;
-          this.postHistory();
-          this.getHistory();
-          return this.Anum - this.Bnum;
-        case "*":
-          this.result = this.Anum * this.Bnum;
-          this.postHistory();
-          this.getHistory();
-          return this.Anum * this.Bnum;
-        case "/":
-          this.result = this.Anum / this.Bnum;
-          this.postHistory();
-          this.getHistory();
-          return this.Anum / this.Bnum;
-        case "%":
-          this.result = (this.Anum / 100) * this.Bnum;
-          this.postHistory();
-          this.getHistory();
-          return (this.Anum / 100) * this.Bnum;
+    async calc() {
+      try {
+        switch (this.operator) {
+          case "+":
+            this.result = this.Anum + this.Bnum;
+            this.postHistory();
+            this.getHistory();
+            return this.Anum + this.Bnum;
+          case "-":
+            this.result = this.Anum - this.Bnum;
+            this.postHistory();
+            this.getHistory();
+            return this.Anum - this.Bnum;
+          case "*":
+            this.result = this.Anum * this.Bnum;
+            this.postHistory();
+            this.getHistory();
+            return this.Anum * this.Bnum;
+          case "/":
+            this.result = this.Anum / this.Bnum;
+            this.postHistory();
+            this.getHistory();
+            return this.Anum / this.Bnum;
+          case "%":
+            this.result = (this.Anum / 100) * this.Bnum;
+            this.postHistory();
+            this.getHistory();
+            return (this.Anum / 100) * this.Bnum;
+        }
+      } catch (err) {
+        console.log(err);
       }
     },
     clear() {
@@ -199,28 +203,42 @@ export default {
       this.showHistory = !this.showHistory;
       console.log(this.showHistory);
     },
-    getHistory() {
-      this.axios.get(URLS.history).then((response) => {
-        console.warn(response);
-        this.history = response.data;
-      });
+    async getHistory() {
+      try {
+        await this.axios.get(URLS.history).then((response) => {
+          console.warn(response);
+          this.history = response.data;
+        });
+      } catch (err) {
+        console.log(err);
+      }
     },
-    postHistory() {
-      const body = {
-        Anum: this.Anum,
-        Bnum: this.Bnum,
-        operation: this.operator,
-        result: this.result,
-      };
-      this.axios.post(URLS.history, body).then((response) => {
-        console.warn("response", response);
-      });
+    async postHistory() {
+      try {
+        const body = {
+          Anum: this.Anum,
+          Bnum: this.Bnum,
+          operation: this.operator,
+          result: this.result,
+        };
+        await this.axios.post(URLS.history, body).then((response) => {
+          console.warn("response", response);
+        });
+      } catch (err) {
+        console.log(err);
+      }
     },
-    deleteHistory(id) {
-      this.axios.delete(URLS.deleteHistoryById + id).then((response) => {
-        console.warn(response);
-        this.getHistory();
-      });
+    async deleteHistory(id) {
+      try {
+        await this.axios
+          .delete(URLS.deleteHistoryById + id)
+          .then((response) => {
+            console.warn(response);
+            this.getHistory();
+          });
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };

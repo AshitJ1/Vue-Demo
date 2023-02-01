@@ -13,7 +13,7 @@ const routes = [
         name: "UserList",
         component: UserList,
     },
-]
+];
 
 const router = createRouter({
     history: createWebHistory(),
