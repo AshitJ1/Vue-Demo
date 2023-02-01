@@ -162,8 +162,7 @@ export default {
   },
 
   methods: {
-    async calc() {
-      try {
+     calc() {
         switch (this.operator) {
           case "+":
             this.result = this.Anum + this.Bnum;
@@ -191,8 +190,6 @@ export default {
             this.getHistory();
             return (this.Anum / 100) * this.Bnum;
         }
-      } catch (err) {
-        console.log(err);
       }
     },
     clear() {
