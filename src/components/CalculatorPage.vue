@@ -120,18 +120,20 @@
     </div>
 
     <!--History UI block in progress -->
-    <div v-for="item in history" v-bind:key="item.id">
-      <h4>history</h4>
-      <p>
-        {{ item.Anum }}{{ item.operation }}{{ item.Bnum }}={{ item.result }}
-      </p>
-      <button
-        type="button"
-        class="btn btn-danger m-2 btn-sm"
-        v-on:click="deleteHistory(item.id)"
-      >
-        <i class="fa fa-trash"></i>
-      </button>
+    <div v-if="showHistory">
+      <div v-for="item in history" v-bind:key="item.id">
+        <h4>history</h4>
+        <p>
+          {{ item.Anum }}{{ item.operation }}{{ item.Bnum }}={{ item.result }}
+        </p>
+        <button
+          type="button"
+          class="btn btn-danger m-2 btn-sm"
+          v-on:click="deleteHistory(item.id)"
+        >
+          <i class="fa fa-trash"></i>
+        </button>
+      </div>
     </div>
     <!-- History UI -->
   </div>
@@ -162,34 +164,33 @@ export default {
   },
 
   methods: {
-     calc() {
-        switch (this.operator) {
-          case "+":
-            this.result = this.Anum + this.Bnum;
-            this.postHistory();
-            this.getHistory();
-            return this.Anum + this.Bnum;
-          case "-":
-            this.result = this.Anum - this.Bnum;
-            this.postHistory();
-            this.getHistory();
-            return this.Anum - this.Bnum;
-          case "*":
-            this.result = this.Anum * this.Bnum;
-            this.postHistory();
-            this.getHistory();
-            return this.Anum * this.Bnum;
-          case "/":
-            this.result = this.Anum / this.Bnum;
-            this.postHistory();
-            this.getHistory();
-            return this.Anum / this.Bnum;
-          case "%":
-            this.result = (this.Anum / 100) * this.Bnum;
-            this.postHistory();
-            this.getHistory();
-            return (this.Anum / 100) * this.Bnum;
-        }
+    calc() {
+      switch (this.operator) {
+        case "+":
+          this.result = this.Anum + this.Bnum;
+          this.postHistory();
+          this.getHistory();
+          return this.Anum + this.Bnum;
+        case "-":
+          this.result = this.Anum - this.Bnum;
+          this.postHistory();
+          this.getHistory();
+          return this.Anum - this.Bnum;
+        case "*":
+          this.result = this.Anum * this.Bnum;
+          this.postHistory();
+          this.getHistory();
+          return this.Anum * this.Bnum;
+        case "/":
+          this.result = this.Anum / this.Bnum;
+          this.postHistory();
+          this.getHistory();
+          return this.Anum / this.Bnum;
+        case "%":
+          this.result = (this.Anum / 100) * this.Bnum;
+          this.postHistory();
+          this.getHistory();
+          return (this.Anum / 100) * this.Bnum;
       }
     },
     clear() {
